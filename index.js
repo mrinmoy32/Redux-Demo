@@ -5,10 +5,11 @@ const CAKE_ORDERED = "CAKE_ORDERED";
 const CAKE_RESTOCKED = "CAKE_RESTOCKED";
 
 //Action Creator is a fn that returns the action
+//In React the covention use to use property "payload" for any additional inforamtion you want to send.
 const orderCake = () => {
   return {
     type: CAKE_ORDERED,
-    quantity: 1,
+    payload: 1,
   };
 };
 
@@ -16,7 +17,7 @@ const orderCake = () => {
 const restockCake = (qty = 3) => {
   return {
     type: CAKE_RESTOCKED,
-    quantity: qty,
+    payload: qty,
   };
 };
 
@@ -37,7 +38,7 @@ const reducer = (state = initialState, action) => {
     case CAKE_RESTOCKED:
       return {
         ...state,
-        numOfCakes: state.numOfCakes + action.quantity,
+        numOfCakes: state.numOfCakes + action.payload,
       };
     default:
       return state;
