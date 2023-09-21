@@ -7,3 +7,9 @@ const orderCake = () => {
     quantity: 1,
   };
 };
+
+//State
+const initialState = {
+    numOfCakes : 10
+}
+// (previousState, action) => newState
