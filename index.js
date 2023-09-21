@@ -13,17 +13,18 @@ const orderCake = () => {
 };
 
 //Another action creator
-const restockCake = () => {
+const restockCake = (qty = 3) => {
   return {
     type: CAKE_RESTOCKED,
-    quantity: 5,
+    quantity: qty,
   };
 };
 
 //State
 const initialState = {
   numOfCakes: 10,
-  anotherProperty: 0,
+  numOfpastries: 25,
+  numOfbreads: 30,
 };
 // (previousState, action) => newState
 const reducer = (state = initialState, action) => {
@@ -36,7 +37,7 @@ const reducer = (state = initialState, action) => {
     case CAKE_RESTOCKED:
       return {
         ...state,
-        numOfCakes: state.numOfCakes + 5,
+        numOfCakes: state.numOfCakes + action.quantity,
       };
     default:
       return state;
@@ -55,6 +56,6 @@ const unsubscribe = store.subscribe(() =>
 store.dispatch(orderCake());
 store.dispatch(orderCake());
 store.dispatch(orderCake());
-store.dispatch(restockCake());
+store.dispatch(restockCake(5));
 
 unsubscribe();
