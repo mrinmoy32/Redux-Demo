@@ -38,16 +38,26 @@ const restockIceCream = (qty = 1) => {
   };
 };
 
-//State
-const initialState = {
+// State
+// const initialState = {
+//   numOfCakes: 10,
+//   numOfpastries: 25,
+//   numOfIceCream: 12,
+//   numOfbreads: 30,
+// };
+
+// creating separate state for separate property
+const initialCakeState = {
   numOfCakes: 10,
-  numOfpastries: 25,
-  numOfIceCream: 12,
-  numOfbreads: 30,
 };
+const initialIceCreamState = {
+  numOfIceCream: 12,
+};
+
 // (previousState, action) => newState
 //in the long run for too many action types we should create multiple reducers
-const reducer = (state = initialState, action) => {
+//Creating separate reducers
+const cakeReducer = (state = initialCakeState, action) => {
   switch (action.type) {
     case CAKE_ORDERED:
       return {
@@ -59,6 +69,13 @@ const reducer = (state = initialState, action) => {
         ...state,
         numOfCakes: state.numOfCakes + action.payload,
       };
+
+    default:
+      return state;
+  }
+};
+const iceCreamReducer = (state = initialIceCreamState, action) => {
+  switch (action.type) {
     case ICECREAM_ORDERED:
       return {
         ...state,
@@ -89,12 +106,15 @@ const unsubscribe = store.subscribe(() =>
 // store.dispatch(restockCake(5));
 
 // bindActionCreators was useful back in the days, not now
-const actions = bindActionCreators({orderCake, restockCake, orderIceCream, restockIceCream}, store.dispatch)
+const actions = bindActionCreators(
+  { orderCake, restockCake, orderIceCream, restockIceCream },
+  store.dispatch
+);
 
-actions.orderCake()
-actions.orderIceCream()
-actions.orderCake()
-actions.restockIceCream(5)
-actions.restockCake()
+actions.orderCake();
+actions.orderIceCream();
+actions.orderCake();
+actions.restockIceCream(5);
+actions.restockCake();
 
 unsubscribe();
