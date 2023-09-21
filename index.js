@@ -4,6 +4,8 @@ const bindActionCreators = redux.bindActionCreators;
 
 const CAKE_ORDERED = "CAKE_ORDERED";
 const CAKE_RESTOCKED = "CAKE_RESTOCKED";
+const ICECREAM_ORDERED = "ICECREAM_ORDERED";
+const ICECREAM_RESTOCKED = "ICECREAM_RESTOCKED";
 
 //Action Creator is a fn that returns the action
 //In React the covention use to use property "payload" for any additional inforamtion you want to send.
@@ -15,9 +17,23 @@ const orderCake = () => {
 };
 
 //Another action creator
-const restockCake = (qty = 3) => {
+const restockCake = (qty = 1) => {
   return {
     type: CAKE_RESTOCKED,
+    payload: qty,
+  };
+};
+
+const orderIceCream = (qty = 1) => {
+  return {
+    type: ICECREAM_ORDERED,
+    payload: qty,
+  };
+};
+
+const restockIceCream = (qty = 1) => {
+  return {
+    type: ICECREAM_RESTOCKED,
     payload: qty,
   };
 };
@@ -26,9 +42,11 @@ const restockCake = (qty = 3) => {
 const initialState = {
   numOfCakes: 10,
   numOfpastries: 25,
+  numOfIceCream: 12,
   numOfbreads: 30,
 };
 // (previousState, action) => newState
+//in the long run for too many action types we should create multiple reducers
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case CAKE_ORDERED:
@@ -40,6 +58,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         numOfCakes: state.numOfCakes + action.payload,
+      };
+    case ICECREAM_ORDERED:
+      return {
+        ...state,
+        numOfIceCream: state.numOfIceCream - action.payload,
+      };
+    case ICECREAM_RESTOCKED:
+      return {
+        ...state,
+        numOfIceCream: state.numOfIceCream + action.payload,
       };
     default:
       return state;
@@ -61,11 +89,12 @@ const unsubscribe = store.subscribe(() =>
 // store.dispatch(restockCake(5));
 
 // bindActionCreators was useful back in the days, not now
-const actions = bindActionCreators({orderCake, restockCake}, store.dispatch)
+const actions = bindActionCreators({orderCake, restockCake, orderIceCream, restockIceCream}, store.dispatch)
 
 actions.orderCake()
+actions.orderIceCream()
 actions.orderCake()
-actions.orderCake()
-actions.restockCake(5)
+actions.restockIceCream(5)
+actions.restockCake()
 
 unsubscribe();
