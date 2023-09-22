@@ -58,6 +58,7 @@ const initialIceCreamState = {
 // (previousState, action) => newState
 //in the long run for too many action types we should create multiple reducers
 //Creating separate reducers
+//When app grows in size split the reducers and keep them in separate files
 const cakeReducer = (state = initialCakeState, action) => {
   switch (action.type) {
     case CAKE_ORDERED:
