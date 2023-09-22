@@ -28,13 +28,18 @@ const updateStreet = (street) => {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case STREET_UPDATED:
-      return {
-        ...state,
-        address: {
-          ...state.address,
-          street: action.payload,
-        },
-      };
+    //   return {
+    //     ...state,
+    //     address: {
+    //       ...state.address,
+    //       street: action.payload,
+    //     },
+    //   };
+    produce(state, (draft) => {
+        // we are updating the property directly but under the hood 
+        //immer tansaltes the code to something that we have above
+        draft.address.street = action.payload
+    })
     default:
       return state;
   }
