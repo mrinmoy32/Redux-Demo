@@ -1,9 +1,16 @@
-const redux = require('redux');
-const createStore = store.createStore;
+const redux = require("redux");
+const axios = require("axios");
+const createStore = redux.createStore;
+const applyMiddleware = redux.applyMiddleware;
+// thunk middleware
+const thunkMiddleware = require("redux-thunk").default;
+const reduxLogger = require('redux-logger');
+// logger middleware
+const logger = reduxLogger.createLogger();
 
 const initialState = {
   loading: true,
-  data: [],
+  users: [],
   error: "",
 };
 
@@ -48,9 +55,31 @@ const reducer = (state = initialState, action) => {
         ...state,
         loading: false,
         users: [],
-        error: action.payload
+        error: action.payload,
       };
   }
 };
 
-const store = createStore(reducer);
+const fetchUsers = () => {
+  return function (dispatch) {
+    dispatch(fetchUsersRequest);
+
+    axios
+      .get("https://jsonplaceholder.typicode.com/users")
+      .then((res) => {
+        const users = res.data.map((user) => user.id);
+        dispatch(fetchUsersSuccess(users));
+      })
+      .catch((error) => {
+        dispatch(fetchUsersfailure(error.message));
+      });
+  };
+};
+//thunkMiddleware brings to the table, the ability to return a function
+//from an action creator rather than action object
+const store = createStore(reducer, applyMiddleware(thunkMiddleware));
+
+store.subscribe(() => {
+    console.log(store.getState())
+})
+store.dispatch(fetchUsers());
