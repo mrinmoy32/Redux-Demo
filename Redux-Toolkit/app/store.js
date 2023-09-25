@@ -7,4 +7,4 @@ const store = configureStore({
     }
 })
 
-modelue.exports = store;
+module.exports = store;
