@@ -60,6 +60,7 @@ const reducer = (state = initialState, action) => {
   }
 };
 
+// Redux thunk action creator
 const fetchUsers = () => {
   return function (dispatch) {
     dispatch(fetchUsersRequest);
