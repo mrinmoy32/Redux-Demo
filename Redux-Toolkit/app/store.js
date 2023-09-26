@@ -12,7 +12,7 @@ const store = configureStore({
         iceCream: iceCreamReducer
     },
     // in the list of default middlewares created by configureStore we append our logger middleware
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),  
+    // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),  
 })
 
 module.exports = store;
