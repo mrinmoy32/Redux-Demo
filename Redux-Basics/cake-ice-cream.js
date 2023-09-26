@@ -76,6 +76,16 @@ const cakeReducer = (state = initialCakeState, action) => {
       return state;
   }
 };
+
+// each reducer can only updates it's portion of the application state, 
+// however it can respond to any action dispatched in the application. Like if we add the following 
+//action in iceCreamReducer(assume 1 ice creame is being given free with a cake) it will still work 
+//and for CAKE_ORDERED both cake and ice cream count will reduce by 1. But will not work in Redux Toolkit
+//case CAKE_ORDERED:
+// return {
+//   ...state,
+//   numOfCakes: state.numOfIceCream - 1,
+// };
 const iceCreamReducer = (state = initialIceCreamState, action) => {
   switch (action.type) {
     case ICECREAM_ORDERED:
