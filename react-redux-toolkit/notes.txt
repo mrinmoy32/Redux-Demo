@@ -1,5 +1,5 @@
 npm create vite@latest react-redux-toolkit
 cd react-redux-toolkit
 npm install
-npm install axios @reduxjs/toolkit
+npm install axios @reduxjs/toolkit react-redux
 npm run dev
