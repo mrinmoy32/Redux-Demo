@@ -16,7 +16,7 @@ export const UserView = () => {
       {!user.loading && user.users.length ? (
         <ul>
           {user.users.map((user) => (
-            <li key={user.id}>{user.name}</li>
+            <li key={user.id}>{user.id}. {user.name}</li>
           ))}
         </ul>
       ) : null}
