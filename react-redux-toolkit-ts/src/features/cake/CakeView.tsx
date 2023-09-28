@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+// import { useSelector, useDispatch } from 'react-redux'
 import { ordered, restocked } from './cakeSlice';
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
 
 export const CakeView = () => {
     const [restockValue, setRestockValue] = useState(1)
     // To read data from redux store in a react component we use useSelector hook from react-redux library
     // useSelector returns whatever is returned by its callback (selector)  function
-    const numOfCakes  = useSelector((state) => state.cake.numOfCakes);
+    const numOfCakes  = useAppSelector((state) => state.cake.numOfCakes);
     // useDispatch is used to dispatch action with react-redux
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
   return (
     <div>
         <h2>Number of cakes : {numOfCakes}</h2>

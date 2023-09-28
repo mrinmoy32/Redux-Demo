@@ -1,12 +1,14 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux'
+// import { useDispatch, useSelector } from 'react-redux'
 import { ordered, restocked } from './iceCreamSlice';
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
+
 
 export const IceCreamView = () => {
     // To read data from redux store in a react component we use useSelector hook from react-redux library
     // useSelector returns whatever is returned by its callback (selector)  function
-    const numOfIceCreams  = useSelector((state) => state.iceCream.numOfIceCreams);
-    const dispatch = useDispatch();
+    const numOfIceCreams  = useAppSelector((state) => state.iceCream.numOfIceCreams);
+    const dispatch = useAppDispatch();
     const HandleIceCreamOrder = () => dispatch(ordered());
     const HandleIceCreamRestock = () => dispatch(restocked(5));
   return (
